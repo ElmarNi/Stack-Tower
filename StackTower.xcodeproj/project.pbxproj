@@ -18,6 +18,16 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Assets.xcassets,
+				"GameScene/GameScene+Background.swift",
+				"GameScene/GameScene+Blocks.swift",
+				"GameScene/GameScene+GameCenter.swift",
+				"GameScene/GameScene+GameFlow.swift",
+				"GameScene/GameScene+Lifecycle.swift",
+				"GameScene/GameScene+Onboarding.swift",
+				"GameScene/GameScene+Review.swift",
+				"GameScene/GameScene+Screens.swift",
+				"GameScene/GameScene+Settings.swift",
+				"GameScene/GameScene+UI.swift",
 				GameScene/GameScene.swift,
 				GameScene/OnboardingSheet.swift,
 				Models/Difficulty.swift,
