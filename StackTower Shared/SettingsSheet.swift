@@ -12,6 +12,7 @@ import SpriteKit
 protocol SettingsSheetDelegate: AnyObject {
     func settingsSheet(_ sheet: SettingsSheet, didSelect difficulty: Difficulty)
     func settingsSheet(_ sheet: SettingsSheet, didSetSoundEnabled isEnabled: Bool)
+    func settingsSheetDidRequestHowToPlay(_ sheet: SettingsSheet)
     func settingsSheetDidDismiss(_ sheet: SettingsSheet)
 }
 
@@ -26,7 +27,7 @@ final class SettingsSheet: SKNode {
     // MARK: - Private
     
     private let sceneSize: CGSize
-    private let sheetHeight: CGFloat = 390
+    private let sheetHeight: CGFloat = 450
     private var currentDifficulty: Difficulty
     private var isSoundEnabled: Bool
     
@@ -148,11 +149,39 @@ final class SettingsSheet: SKNode {
         soundToggle.position = CGPoint(x: 0, y: sheetHeight - 282)
         soundToggle.setEnabled(isSoundEnabled, animated: false)
         panel.addChild(soundToggle)
+
+        // How to play
+        let howToPlayBtn = buildSecondaryButton(title: "How to Play", name: "howToPlayBtn")
+        howToPlayBtn.position = CGPoint(x: 0, y: sheetHeight - 340)
+        panel.addChild(howToPlayBtn)
         
         // Close button
         let closeBtn = buildCloseButton()
-        closeBtn.position = CGPoint(x: 0, y: sheetHeight - 345)
+        closeBtn.position = CGPoint(x: 0, y: sheetHeight - 400)
         panel.addChild(closeBtn)
+    }
+
+    private func buildSecondaryButton(title: String, name: String) -> SKNode {
+        let container = SKNode()
+        container.name = name
+
+        let bg = SKShapeNode(rectOf: CGSize(width: 160, height: 42), cornerRadius: 21)
+        bg.fillColor = SKColor(white: 0.91, alpha: 1)
+        bg.strokeColor = SKColor(white: 0.82, alpha: 1)
+        bg.lineWidth = 1
+        bg.name = name
+        container.addChild(bg)
+
+        let label = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+        label.text = title
+        label.fontSize = 15
+        label.fontColor = SKColor(white: 0.22, alpha: 1)
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .center
+        label.name = name
+        container.addChild(label)
+
+        return container
     }
     
     private func buildCloseButton() -> SKNode {
@@ -195,11 +224,21 @@ final class SettingsSheet: SKNode {
             toggleSound()
             return
         }
+
+        let howToPlayRect = CGRect(
+            x: -80, y: sheetHeight - 340 - 21,
+            width: 160, height: 42
+        )
+        if howToPlayRect.contains(panelPoint) {
+            delegate?.settingsSheetDidRequestHowToPlay(self)
+            dismiss()
+            return
+        }
         
         if let closeNodes = panel.children.filter({ $0.name == "closeBtn" }) as [SKNode]?,
            !closeNodes.isEmpty
         {
-            let closeBtnPos = CGPoint(x: 0, y: sheetHeight - 345)
+            let closeBtnPos = CGPoint(x: 0, y: sheetHeight - 400)
             let closeBtnRect = CGRect(
                 x: closeBtnPos.x - 80, y: closeBtnPos.y - 22,
                 width: 160, height: 44

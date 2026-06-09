@@ -34,6 +34,8 @@ final class GameScene: SKScene {
     private var difficulty = Difficulty.medium
     private var isSoundEnabled = true
     private var settingsSheet: SettingsSheet?
+    private var onboardingSheet: OnboardingSheet?
+    private var onboardingTouchStart: CGPoint?
     private var didAskForReview = false
     private var nextGoldenScore = 0
 
@@ -79,6 +81,11 @@ final class GameScene: SKScene {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
 
+        if onboardingSheet != nil {
+            onboardingTouchStart = location
+            return
+        }
+
         if settingsSheet != nil {
             settingsSheet?.handleTouch(at: location)
             return
@@ -95,6 +102,13 @@ final class GameScene: SKScene {
         case .playing:
             dropCurrentBlock()
         }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first, let onboardingSheet else { return }
+        let end = touch.location(in: self)
+        onboardingSheet.handleTouch(from: onboardingTouchStart ?? end, to: end)
+        onboardingTouchStart = nil
     }
 
     private func setupScene() {
@@ -414,6 +428,14 @@ final class GameScene: SKScene {
         addChild(sheet)
     }
 
+    private func showOnboarding() {
+        guard onboardingSheet == nil else { return }
+        let sheet = OnboardingSheet(sceneSize: size)
+        sheet.delegate = self
+        onboardingSheet = sheet
+        addChild(sheet)
+    }
+
     private func submitScoreToGameCenter() {
         guard GKLocalPlayer.local.isAuthenticated, score > 0 else { return }
         Task {
@@ -446,7 +468,17 @@ extension GameScene: SettingsSheetDelegate {
         UserDefaults.standard.set(isEnabled, forKey: soundKey)
     }
 
+    func settingsSheetDidRequestHowToPlay(_ sheet: SettingsSheet) {
+        showOnboarding()
+    }
+
     func settingsSheetDidDismiss(_ sheet: SettingsSheet) {
         settingsSheet = nil
+    }
+}
+
+extension GameScene: OnboardingSheetDelegate {
+    func onboardingSheetDidFinish(_ sheet: OnboardingSheet) {
+        onboardingSheet = nil
     }
 }

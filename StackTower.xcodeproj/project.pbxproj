@@ -19,6 +19,7 @@
 			membershipExceptions = (
 				Assets.xcassets,
 				GameScene/GameScene.swift,
+				GameScene/OnboardingSheet.swift,
 				Models/Difficulty.swift,
 				Models/GameState.swift,
 				SettingsSheet.swift,
@@ -177,7 +178,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.elmar.stacktower;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elmar.stacktowerapp;
 				PRODUCT_NAME = StackTower;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -218,7 +219,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.elmar.stacktower;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elmar.stacktowerapp;
 				PRODUCT_NAME = StackTower;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
