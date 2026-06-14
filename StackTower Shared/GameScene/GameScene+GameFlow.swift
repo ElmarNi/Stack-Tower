@@ -10,6 +10,7 @@ import SpriteKit
 extension GameScene {
     func startGame() {
         gameState = .playing
+        resetWorldPosition()
         worldNode.removeAllChildren()
         stackBlocks.removeAll()
         movingBlock = nil
@@ -40,5 +41,10 @@ extension GameScene {
         messageLabel.text = "Game Over"
         subtitleLabel.text = "Score \(score) - tap to restart"
         settingsButton.isHidden = false
+    }
+
+    func resetWorldPosition() {
+        worldNode.removeAllActions()
+        worldNode.position = .zero
     }
 }
