@@ -10,6 +10,7 @@ import SpriteKit
 extension GameScene {
     func setupScene() {
         removeAllChildren()
+        resetWorldPosition()
         worldNode.removeAllChildren()
         hudNode.removeAllChildren()
 

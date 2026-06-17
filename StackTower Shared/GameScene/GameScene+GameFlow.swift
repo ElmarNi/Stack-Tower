@@ -8,8 +8,14 @@
 import SpriteKit
 
 extension GameScene {
+    func resetWorldPosition() {
+        worldNode.removeAllActions()
+        worldNode.position = .zero
+    }
+
     func startGame() {
         gameState = .playing
+        resetWorldPosition()
         worldNode.removeAllChildren()
         stackBlocks.removeAll()
         movingBlock = nil

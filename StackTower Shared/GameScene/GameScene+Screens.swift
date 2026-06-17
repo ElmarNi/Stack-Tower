@@ -10,6 +10,7 @@ import SpriteKit
 extension GameScene {
     func showStartScreen() {
         gameState = .idle
+        resetWorldPosition()
         worldNode.removeAllChildren()
         stackBlocks.removeAll()
         movingBlock = nil
