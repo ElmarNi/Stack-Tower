@@ -184,7 +184,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12;
+				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elmar.stacktowerapp;
 				PRODUCT_NAME = StackTower;
 				SDKROOT = iphoneos;
@@ -225,7 +225,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12;
+				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elmar.stacktowerapp;
 				PRODUCT_NAME = StackTower;
 				SDKROOT = iphoneos;
