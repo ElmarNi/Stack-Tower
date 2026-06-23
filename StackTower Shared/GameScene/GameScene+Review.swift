@@ -9,10 +9,22 @@ import SpriteKit
 import StoreKit
 
 extension GameScene {
+    func registerLaunchSession() {
+        launchSessionCount = UserDefaults.standard.integer(forKey: launchSessionCountKey) + 1
+        UserDefaults.standard.set(launchSessionCount, forKey: launchSessionCountKey)
+    }
+
     func requestAppReviewIfNeeded() {
-        guard !didAskForReview, score >= 10 else { return }
+        let lastReviewRequestHighScore = UserDefaults.standard.integer(forKey: lastReviewRequestHighScoreKey)
+
+        guard !didAskForReview,
+              launchSessionCount >= 5,
+              didImproveHighScoreThisRound,
+              highScore > lastReviewRequestHighScore else { return }
+
         didAskForReview = true
         guard let view = view, let scene = view.window?.windowScene else { return }
+        UserDefaults.standard.set(highScore, forKey: lastReviewRequestHighScoreKey)
         SKStoreReviewController.requestReview(in: scene)
     }
 }

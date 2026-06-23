@@ -36,6 +36,8 @@ final class GameScene: SKScene {
     var onboardingTouchStart: CGPoint?
     var shouldMarkOnboardingSeenOnFinish = false
     var didAskForReview = false
+    var didImproveHighScoreThisRound = false
+    var launchSessionCount = 0
     var nextGoldenScore = 0
 
     let blockHeight: CGFloat = 28
@@ -46,9 +48,12 @@ final class GameScene: SKScene {
     let difficultyKey = "stackTowerDifficulty"
     let soundKey = "stackTowerSoundEnabled"
     let onboardingSeenKey = "stackTowerHasSeenOnboarding"
+    let launchSessionCountKey = "stackTowerLaunchSessionCount"
+    let lastReviewRequestHighScoreKey = "stackTowerLastReviewRequestHighScore"
 
     override func didMove(to view: SKView) {
         backgroundColor = SKColor(red: 0.08, green: 0.10, blue: 0.16, alpha: 1)
+        registerLaunchSession()
         highScore = UserDefaults.standard.integer(forKey: highScoreKey)
         difficulty = Difficulty(rawValue: UserDefaults.standard.string(forKey: difficultyKey) ?? "") ?? .medium
         isSoundEnabled = UserDefaults.standard.object(forKey: soundKey) as? Bool ?? true

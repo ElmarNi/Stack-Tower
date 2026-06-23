@@ -62,6 +62,7 @@ extension GameScene {
 
         if score > highScore {
             highScore = score
+            didImproveHighScoreThisRound = true
             UserDefaults.standard.set(highScore, forKey: highScoreKey)
         }
 

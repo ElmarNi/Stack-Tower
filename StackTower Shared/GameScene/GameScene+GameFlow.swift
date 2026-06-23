@@ -21,6 +21,7 @@ extension GameScene {
         movingBlock = nil
         cameraOffset = 0
         score = 0
+        didImproveHighScoreThisRound = false
         nextGoldenScore = Int.random(in: 14...22)
         messageLabel.text = ""
         subtitleLabel.text = ""
